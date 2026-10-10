@@ -1,36 +1,43 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
-  const [announcements, setAnnouncements] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await fetch('http://localhost:3000/announcements')
-        if (!response.ok) throw new Error('Failed to fetch announcements')
-        const data = await response.json()
-        setAnnouncements(data)
+        const response = await fetch("http://localhost:3000/announcements");
+        if (!response.ok) throw new Error("Failed to fetch announcements");
+        const data = await response.json();
+        setAnnouncements(data);
       } catch (err) {
-        setError(err.message)
+        setError(err.message);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchAnnouncements()
-  }, [])
+    fetchAnnouncements();
+  }, []);
 
   const handleAction = (id) => {
-    alert(`Action clicked for announcement: ${id}`)
-  }
+    alert(`Action clicked for announcement: ${id}`);
+  };
 
   return (
-  //  Your UI here
-   
-  )
+    //  Your UI here
+    <main>
+      <h1>Announcements</h1>
+      <div>
+        {announcements.map((a) => (
+          <div>{a.title}</div>
+        ))}
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;
